@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_CHANNEL: ${{ inputs.environment }}
-      BRANCH: ${{ github.ref }}
+      BRANCH: ${{ github.head_ref }}
     steps:
       - uses: actions/checkout@v4
         with:
