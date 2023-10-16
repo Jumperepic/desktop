@@ -109,12 +109,12 @@ export function getBundleSizes() {
 export const isPublishable = () =>
   ['production', 'beta', 'test'].includes(getChannel())
 
-function getReleaseBranchName(): string {
-  return process.env.BRANCH ?? ''
+function getBranchName(): string {
+  return process.env.GITHUB_HEAD_REF ?? ''
 }
 
 function getChannelFromBranch(): string | null {
-  if (!getReleaseBranchName().includes('releases/')) {
+  if (!getBranchName().includes('releases/')) {
     return null
   }
 
@@ -130,16 +130,9 @@ function getChannelFromBranch(): string | null {
 }
 
 export const getChannel = () => {
-  console.log('getChannelFromBranch', getReleaseBranchName())
-  console.log('RELEASE CHANNEL' + process.env.RELEASE_CHANNEL + 'end')
-  console.log('NODE_ENV' + process.env.NODE_ENV + 'end')
-
-  return (
-    process.env.RELEASE_CHANNEL ??
-    process.env.NODE_ENV ??
-    getChannelFromBranch() ??
-    'development'
-  )
+  return process.env.RELEASE_CHANNEL
+    ? process.env.RELEASE_CHANNEL
+    : null ?? process.env.NODE_ENV ?? getChannelFromBranch() ?? 'development'
 }
 
 export function getDistArchitecture(): 'arm64' | 'x64' {
