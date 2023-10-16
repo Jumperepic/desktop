@@ -110,7 +110,7 @@ export const isPublishable = () =>
   ['production', 'beta', 'test'].includes(getChannel())
 
 function getReleaseBranchName(): string {
-  return process.env.GITHUB_REF?.replace(/^refs\/heads\//, '') ?? ''
+  return process.env.GITHUB_REF_NAME?.replace(/^refs\/heads\//, '') ?? ''
 }
 
 function getChannelFromBranch(): string | null {
@@ -131,14 +131,8 @@ function getChannelFromBranch(): string | null {
 
 export const getChannel = () => {
   console.log('getChannelFromBranch', getReleaseBranchName())
-  console.log(
-    'RELEASE CHANNEL',
-    process.env.RELEASE_CHANNEL ? process.env.RELEASE_CHANNEL.length : 'nope'
-  )
-  console.log(
-    'NODE_ENV',
-    process.env.NODE_ENV ? process.env.NODE_ENV.length : 'nope'
-  )
+  console.log('RELEASE CHANNEL' + process.env.RELEASE_CHANNEL + 'end')
+  console.log('NODE_ENV' + process.env.NODE_ENV + 'end')
 
   return (
     process.env.RELEASE_CHANNEL ??
