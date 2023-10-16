@@ -110,7 +110,7 @@ export const isPublishable = () =>
   ['production', 'beta', 'test'].includes(getChannel())
 
 function getReleaseBranchName(): string {
-  return process.env.GITHUB_REF_NAME?.replace(/^refs\/heads\//, '') ?? ''
+  return process.env.BRANCH ?? ''
 }
 
 function getChannelFromBranch(): string | null {
